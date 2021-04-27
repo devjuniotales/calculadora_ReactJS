@@ -8,7 +8,7 @@ function App() {
   const [current, setCurrent] = useState('')
 
   
-  function calc() {
+  function clear() {
     setValue('')
     setDisplay('0')
     setCurrent('')
@@ -35,31 +35,28 @@ function App() {
   function calculate() {
     let n1 = parseFloat(current.replace(',', '.'))
     let n2 = parseFloat(value.replace(',' , '.'))
-    
+    let result = ''
     if(operation == null){
       return 
     }
-
     if(operation == '+'){
-      let s = n1 + n2
-      setDisplay(s)
+      result = n1 + n2
     }
     if(operation == '/'){
-      let s = n1 / n2
-      setDisplay(s.toFixed(3))
+      result = n1 / n2
     }
     if(operation == '*'){
-      let s = n1  * n2
-      setDisplay(s)
+      result = n1  * n2
+      setDisplay(result)
     }
     if(operation == '-'){
-      let s = n1 - n2
-      setDisplay(s)
+      result = n1 - n2
+      setDisplay(result)
     }
     if(operation == '%'){
-      let s = n1 * (( n2 / 100))
-      setDisplay(s.toFixed(2))
+      result = n1 * (( n2 / 100))
     }
+    setDisplay(result.toFixed(2))
   }
 
   return (
@@ -70,7 +67,7 @@ function App() {
            {display === '0' ? value : display }
         </div>
        <div className ='content-button'>
-          <button className ='button'value ='C' type ='button' onClick ={() => calc() }>C</button>
+          <button className ='button'value ='C' type ='button' onClick ={() => clear() }>C</button>
           <button className ='button'value ='DEL' type ='button' onClick ={() => {}}>DEL</button>
           <button className ='button'value ='%' type ='button' onClick ={(event) => operator(event.target.value)}>%</button>
           <button className ='button'value ='/' type ='button' onClick ={(event) => operator(event.target.value)}>/</button>
