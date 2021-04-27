@@ -1,4 +1,4 @@
-import {useEffect, useState } from 'react';
+import {useState } from 'react';
 import './App.css';
 
 function App() {
@@ -15,7 +15,12 @@ function App() {
     setOperation(null)
   }
 
-  useEffect(() => {console.log()},[display])
+  function virgula(v) {
+    if(value.charAt(0) == ',' || value == ''){
+      return 
+    }
+    setValue(value + v)
+  }
 
   function addNumber(n) {
     setValue(value + n)
@@ -23,36 +28,37 @@ function App() {
   
   function operator(op) {
     setCurrent(value)
-    setValue(' ')
+    setValue('')
     setOperation(op)
   }
 
   function calculate() {
-    let n = current
-    n.replace(',')
-    console.log(n)
+    let n1 = parseFloat(current.replace(',', '.'))
+    let n2 = parseFloat(value.replace(',' , '.'))
+    
+    if(operation == null){
+      return 
+    }
 
     if(operation == '+'){
-      console.log(value)
-      let s = Number(current) + Number(value)
+      let s = n1 + n2
       setDisplay(s)
     }
     if(operation == '/'){
-      let s = Number(current) / Number(value)
-      setDisplay(s)
+      let s = n1 / n2
+      setDisplay(s.toFixed(3))
     }
     if(operation == '*'){
-      let s = Number(current) * Number(value)
+      let s = n1  * n2
       setDisplay(s)
     }
     if(operation == '-'){
-      let s = Number(current) - Number(value)
+      let s = n1 - n2
       setDisplay(s)
     }
     if(operation == '%'){
-      let s = Number(current) * (( value / 100))
-      console.log('', s)
-      setDisplay(s)
+      let s = n1 * (( n2 / 100))
+      setDisplay(s.toFixed(2))
     }
   }
 
@@ -82,7 +88,7 @@ function App() {
           <button className ='button'value ='+' type ='button' onClick ={(event) => operator(event.target.value)}>+</button>
           <button className ='button'value =' ' type ='button' onClick ={(event) => operator(event.target.value)}> </button>
           <button className ='button'value ='0' type ='button' onClick ={event => addNumber(event.target.value)}>0</button>
-          <button className ='button'value =',' type ='button' onClick ={event => addNumber(event.target.value)}>,</button>
+          <button className ='button'value =',' type ='button' onClick ={event => virgula(event.target.value)}>,</button>
           <button className ='button'value ='=' type ='button' onClick ={() => calculate()}>=</button>
        </div>
       </div>
