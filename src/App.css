@@ -9,13 +9,14 @@
   flex-direction: column;
 }
 .content {
-  height: 450px;
+  height: 500px;
   width: 400px;
 
   border: 1px solid black;
   display: grid;
   grid-auto-rows: 25% 75%;
   
+  background-color: black;
 
 }
 .content-display{
@@ -32,18 +33,39 @@
   padding-inline-end: 5px;
 
   border: 1px solid black;
+  background-color : #FFF;
 }
 .content-button {
-  display: grid;
-  grid-auto-rows: 1fr 1fr 1fr  ;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  display: flex;
+  width: 100%;
+  height: 100%;
 
-  margin: 10px;
+
+  flex-direction: column;
+}
+.buttonarea1{
+  display: flex;
+  height: 85%;
+  width: 100%;
+
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
 
 .button {
-    width: 95%;
-    height: 95%;
+    width: 90px;
+    height: 60px;    
 
     font-size: 40px;
+    font-family: 'Roboto', sans-serif;
+    margin: 5px;
+}
+.buttonc {
+  width: 190px;
+  height: 60px;
+
+  font-size: 40px;
+  font-family: 'Roboto', sans-serif;
+  margin: 5px;
 }
