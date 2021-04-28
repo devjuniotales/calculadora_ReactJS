@@ -1,16 +1,15 @@
-import {useState } from 'react';
+import {useEffect, useState } from 'react';
 import './App.css';
 
 function App() {
-  const [display, setDisplay] = useState("0")
   const [value, setValue] = useState('')
   const [operation, setOperation] = useState(null)
+  const [newNumber , SetNewNumber] = useState(true)
   const [current, setCurrent] = useState('')
 
   
   function clear() {
     setValue('')
-    setDisplay('0')
     setCurrent('')
     setOperation(null)
   }
@@ -23,7 +22,12 @@ function App() {
   }
 
   function addNumber(n) {
-    setValue(value + n)
+    if(newNumber){
+     setValue(value + n)
+     SetNewNumber(false)
+    }else {
+      setValue(value + n)
+    }
   }
   
   function operator(op) {
@@ -32,31 +36,33 @@ function App() {
     setOperation(op)
   }
 
+  useEffect(() => {console.log(current, value)}, [current, value])
+
   function calculate() {
-    let n1 = parseFloat(current.replace(',', '.'))
-    let n2 = parseFloat(value.replace(',' , '.'))
+    let n1 = parseFloat(current)
+    let n2 = parseFloat(value)
     let result = ''
-    if(operation == null){
-      return 
+    if(operation !== null){
+   
+      if(operation == '+'){
+        result = n1 + n2
+      }
+      if(operation == '/'){
+        result = n1 / n2
+      }
+      if(operation == '*'){
+        result = n1  * n2
+      }
+      if(operation == '-'){
+        result = n1 - n2
+      }
+      if(operation == '%'){
+        result = n1 * (( n2 / 100))
+      }
     }
-    if(operation == '+'){
-      result = n1 + n2
-    }
-    if(operation == '/'){
-      result = n1 / n2
-    }
-    if(operation == '*'){
-      result = n1  * n2
-      setDisplay(result)
-    }
-    if(operation == '-'){
-      result = n1 - n2
-      setDisplay(result)
-    }
-    if(operation == '%'){
-      result = n1 * (( n2 / 100))
-    }
-    setDisplay(result.toFixed(2))
+    setValue(result)
+    setOperation(null)
+    setCurrent(0)
   }
 
   return (
@@ -64,7 +70,7 @@ function App() {
       <div className = 'content'>
 
         <div className ='content-display'>
-           {display === '0' ? value : display }
+           {value}
         </div>
        <div className ='content-button'>
           <button className ='button'value ='C' type ='button' onClick ={() => clear() }>C</button>
